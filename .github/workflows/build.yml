@@ -27,11 +27,11 @@ jobs:
       - name: Загрузка зависимостей
         run: flutter pub get
 
-      - name: Сборка Release APK
-        run: flutter build apk --release --android-skip-build-dependency-validation
+      - name: Сборка Debug APK
+        run: flutter build apk --debug --android-skip-build-dependency-validation
 
       - name: Сохранение готового APK
         uses: actions/upload-artifact@v6
         with:
-          name: app-release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: app-debug
+          path: build/app/outputs/flutter-apk/app-debug.apk
