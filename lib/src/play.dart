@@ -4377,8 +4377,16 @@ class _GamePageState extends State<GamePage>
               );
             }
 
-            if (constraints.maxWidth > constraints.maxHeight &&
-                constraints.maxWidth >= 600) {
+          final isSplitOrLandscape = (constraints.maxWidth > constraints.maxHeight) || 
+                           (constraints.maxHeight < 550 && constraints.maxWidth >= 320);
+
+if (isSplitOrLandscape) {
+  final rowHeight = 36.0;
+  final size = min(
+    constraints.maxHeight - 16,
+    constraints.maxWidth * 0.62,
+  ).clamp(180.0, 560.0);  }
+            {
               final rowHeight = max(
                 44.0,
                 MediaQuery.textScalerOf(context).scale(20) + 20,
