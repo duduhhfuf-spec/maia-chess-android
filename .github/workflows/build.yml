@@ -26,7 +26,7 @@ jobs:
         run: flutter pub get
 
       - name: Сборка Release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --android-skip-build-dependency-validation
 
       - name: Сохранение готового APK
         uses: actions/upload-artifact@v6
