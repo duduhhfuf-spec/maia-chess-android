@@ -4387,6 +4387,10 @@ class _GamePageState extends State<GamePage>
             // Ниже 300 dp строки игроков уезжают в боковую колонку:
             // иначе они съедают высоту, нужную доске.
             final compactHeight = height < 300;
+            final useColumns =
+                width >= 320 &&
+                height >= 140 &&
+                (width > height || height < 550);
             if (useColumns) {
               // В тесном окне каждый dp по высоте отдаём доске.
               final pad = compactHeight ? 2.0 : 8.0;
