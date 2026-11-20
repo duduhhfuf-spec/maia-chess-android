@@ -4249,8 +4249,12 @@ class _GamePageState extends State<GamePage>
   @override
   Widget build(BuildContext context) {
     final showingSettings = !_started && _settingsOpen;
+    // Окно 30% сплита: стандартные 56 dp тулбара — четверть высоты окна.
+    final compactToolbar =
+        _started && MediaQuery.sizeOf(context).height < 320;
     final page = Scaffold(
       appBar: AppBar(
+        toolbarHeight: compactToolbar ? 40 : null,
         automaticallyImplyLeading: false,
         leading: showingSettings
             ? IconButton(
@@ -4383,20 +4387,18 @@ class _GamePageState extends State<GamePage>
             // Ниже 300 dp строки игроков уезжают в боковую колонку:
             // иначе они съедают высоту, нужную доске.
             final compactHeight = height < 300;
-            final useColumns =
-                width >= 320 &&
-                height >= 140 &&
-                (width > height || height < 550);
             if (useColumns) {
+              // В тесном окне каждый dp по высоте отдаём доске.
+              final pad = compactHeight ? 2.0 : 8.0;
               final sideReserve = compactHeight
                   ? 148.0
                   : (width >= 640 ? 280.0 : 132.0);
               final size = min(
-                height - 16 - (compactHeight ? 0.0 : rowHeight * 2),
-                width - 16 - 12 - sideReserve,
+                height - pad * 2 - (compactHeight ? 0.0 : rowHeight * 2),
+                width - pad * 2 - 12 - sideReserve,
               ).clamp(80.0, 560.0);
               return Padding(
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(pad),   // без const!
                 child: Row(
                   children: [
                     SizedBox(
